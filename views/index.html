@@ -3,16 +3,44 @@
 
 <head>
     <title>Node.js + Google Cloud + LittleBits</title>
-    <link rel="stylesheet" href="style.css">
     <script src="https://cdn.polyfill.io/v2/polyfill.min.js"></script>
+    <link rel="stylesheet" href="//fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="//code.getmdl.io/1.1.1/material.indigo-pink.min.css">
+    <script defer src="//code.getmdl.io/1.1.1/material.min.js"></script>
+    <link rel="stylesheet" href="style.css">
     <script type="text/javascript">
         var subscribeKey = "{{subscribeKey}}";
+        var clicks = {{clicks}};
     </script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 
-<body>
-    <button id="btn">click me</button>
-    <div id="click-container" ><div id="cnt" style="width: {{clicks}}%">{{clicks}}%</div></div>
+<body class="mdl-demo mdl-color--grey-200 mdl-color-text--grey-700 mdl-base">
+
+    <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
+      <header class="mdl-layout__header">
+        <div class="mdl-layout__header-row">
+          <span class="mdl-layout-title">Node.js  +  LittleBits  +  Google Cloud</span>
+        </div>
+      </header>
+      <div class="mdl-layout__drawer">
+        <span class="mdl-layout-title">Learn more</span>
+        <nav class="mdl-navigation">
+          <a class="mdl-navigation__link" href="https://cloud.google.com/nodejs">Node.js on Google Cloud</a>
+          <a class="mdl-navigation__link" href="github.com/GoogleCloudPlatform/nodejs-docs-samples">Node.js samples</a>
+          <a class="mdl-navigation__link" href="http://jbeckwith.com">About me</a>
+        </nav>
+      </div>
+      <main class="mdl-layout__content">
+        <div class="page-content" id="container">
+            <div id="progress" class="mdl-progress mdl-js-progress"></div>
+            <button id="btn" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-color--primary mdl-color-text--primary-contrast">VOTE</button>
+        </div>
+      </main>
+    </div>
+
+    <a href="https://github.com/JustinBeckwith/hatspin" target="_blank" id="view-source" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-color--accent mdl-color-text--accent-contrast">View Source</a>
+
     <script src='//cdn.pubnub.com/pubnub-dev.js'></script>
     <script src='script.js'></script>
 </body>

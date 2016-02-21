@@ -1,6 +1,11 @@
 
 var cnt = document.getElementById('cnt');
 var btn = document.getElementById('btn');
+var progress = document.getElementById('progress');
+
+progress.addEventListener('mdl-componentupgraded', function() {
+    this.MaterialProgress.setProgress(clicks);
+});
 
 var nub = PUBNUB.init({
     subscribe_key: subscribeKey
@@ -9,9 +14,7 @@ var nub = PUBNUB.init({
 nub.subscribe({
     channel: 'click',
     message: function(m){
-        console.log(m);
-        cnt.innerText = m;
-        cnt.style.width = m + "%";
+        progress.MaterialProgress.setProgress(m);
     }
 });
 

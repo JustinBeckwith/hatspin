@@ -1,5 +1,11 @@
-body {
-    background-color: #F00;
+#view-source {
+    position: fixed;
+    display: block;
+    right: 0;
+    bottom: 0;
+    margin-right: 40px;
+    margin-bottom: 40px;
+    z-index: 900;
 }
 
 #click-container {
@@ -12,4 +18,24 @@ body {
 #cnt {
     height: 75px;
     background-color: #00F;
+}
+
+#btn {
+    margin-top: 20px;
+    margin-left: auto;
+    margin-right: auto;
+    width: 400px;
+    height: 75px;
+    font-size: 28px;
+}
+
+#container {
+    width: calc(100%-40px);
+    margin: 20px;
+    text-align: center;
+}
+
+#progress {
+    width: 100%;
+    height: 75px;
 }
