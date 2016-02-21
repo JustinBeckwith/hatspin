@@ -64,6 +64,13 @@ app.get('/', function(req, res, next) {
     });
 });
 
+app.get('/reset', function(req, res, next) {
+    redisClient.set('clicks', 0, function(err, data) {
+        if (err) { return next(err); }
+        res.sendStatus(202);
+    });
+});
+
 
 // increment the click counter in memcached
 app.post('/click', function(req, res, next) {
