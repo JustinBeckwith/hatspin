@@ -4,10 +4,17 @@
 <head>
     <title>Node.js + Google Cloud + LittleBits</title>
     <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.polyfill.io/v2/polyfill.min.js"></script>
+    <script type="text/javascript">
+        var subscribeKey = "{{subscribeKey}}";
+    </script>
 </head>
 
 <body>
-    <div>hello</div>
+    <button id="btn">click me</button>
+    <div>clicks: <span id="cnt">{{clicks}}</span></div>
+    <script src='//cdn.pubnub.com/pubnub-dev.js'></script>
+    <script src='script.js'></script>
 </body>
 
 </html>

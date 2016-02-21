@@ -25,13 +25,10 @@ app.set('view engine', 'html');
 app.use(express.static(path.join(__dirname, 'public')));
 
 // pubnub setup
-const publishKey = nconf.get('pubnub_publish_key');
-const subscribeKey = nconf.get('pubnub_subscribe_key');
-console.log(publishKey + ":" + subscribeKey);
 var pubnub = require("pubnub")({
     ssl: true,
-    publish_key: publishKey,
-    subscribe_key: subscribeKey
+    publish_key: nconf.get('pubnub_publish_key'),
+    subscribe_key: nconf.get('pubnub_subscribe_key')
 });
 
 pubnub.subscribe({
@@ -56,7 +53,15 @@ const redisClient = redis.createClient(
 
 // routes
 app.get('/', function(req, res, next) {
-    res.render('index');
+    redisClient.get('clicks', function(err, data) {
+        console.log("err: " + err);
+        console.log("data: " + data);
+        if (err) { return next(err); }
+        res.render('index', {
+            subscribeKey: nconf.get('pubnub_subscribe_key'),
+            clicks: (data ? data : 0) + "" // swig type bug
+        });
+    });
 });
 
 
@@ -64,39 +69,27 @@ app.get('/', function(req, res, next) {
 app.post('/click', function(req, res, next) {
     console.log("registering a click");
     redisClient.incr('clicks', function(err, reply) {
-        if (err) {
-            return callback(err);
-        }
-        console.log('reply:' + reply);
-        // get the click count 
-        redisClient.get('clicks', function(err, value) {
-            if (err) {
-                return callback(err);
+        if (err) return next(err);
+        // broadcast the new click count to connected clients
+        api.output();
+        pubnub.publish({
+            channel: 'click',
+            message: reply,
+            callback: function(r) {
+                res.sendStatus(202);
+            },
+            error: function(err) {
+                return next(err);
             }
-            var cc = 0;
-            console.log('value is: ' + value);
-            if (value) {
-                cc = value;
-            }
-
-            // broadcast the new click count to all connected clients
-            pubnub.publish({
-                channel: 'click',
-                message: cc,
-                callback: function(r) {
-                    callback();
-                },
-                error: function(e) {
-                    callback(e);
-                }
-            });
         });
     });
 });
 
 // Start the server
-const server = app.listen(process.env.PORT || 8080, '0.0.0.0', function() {
-    console.log('App listening at http://%s:%s', server.address().address,
+const server = app.listen(process.env.PORT || 8080, 
+    '0.0.0.0', function() {
+    console.log('App listening at http://%s:%s', 
+        server.address().address,
         server.address().port);
     console.log('Press Ctrl+C to quit.');
 });
