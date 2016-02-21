@@ -11,6 +11,7 @@ nub.subscribe({
     message: function(m){
         console.log(m);
         cnt.innerText = m;
+        cnt.style.width = m + "%";
     }
 });
 

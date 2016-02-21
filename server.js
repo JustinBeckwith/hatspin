@@ -35,7 +35,7 @@ pubnub.subscribe({
     channel: "party",
     callback: function(message) {
         console.log('someone decided to PAARTY!');
-        api.output();
+        api.output({ percent: 100, duration_ms: 500 });
     }
 });
 
