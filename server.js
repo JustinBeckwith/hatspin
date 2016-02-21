@@ -31,18 +31,10 @@ const pubnub = require("pubnub")({
     subscribe_key: nconf.get('pubnub_subscribe_key')
 });
 
-pubnub.subscribe({
-    channel: "party",
-    callback: function(message) {
-        console.log('someone decided to PAARTY!');
-        api.output({ percent: 100, duration_ms: 500 });
-    }
-});
-
 // set up redis
 const redisClient = redis.createClient(
-    nconf.get('redisPort') || '6379',
-    nconf.get('redisHost') || '127.0.0.1', 
+    nconf.get('redis_port') || '6379',
+    nconf.get('redis_host') || '127.0.0.1', 
     {
         'auth_pass': nconf.get('redisKey'),
         'return_buffers': true
@@ -51,21 +43,20 @@ const redisClient = redis.createClient(
     console.error('ERR:REDIS: ' + err);
 });
 
-// routes
+// show the index page
 app.get('/', function(req, res, next) {
     redisClient.get('clicks', function(err, data) {
-        console.log("err: " + err);
-        console.log("data: " + data);
         let clicks = data ? data : 0;
         clicks = clicks > 100 ? 100 : clicks;
         if (err) { return next(err); }
         res.render('index', {
             subscribeKey: nconf.get('pubnub_subscribe_key'),
-            clicks: clicks + "" // swig type bug
+            clicks: clicks + "" // swig type coersion bug
         });
     });
 });
 
+// reset the counter in redis to 0 votes
 app.get('/reset', function(req, res, next) {
     redisClient.set('clicks', 0, function(err, data) {
         if (err) { return next(err); }
@@ -76,7 +67,6 @@ app.get('/reset', function(req, res, next) {
 
 // increment the click counter in memcached
 app.post('/click', function(req, res, next) {
-    console.log("registering a click");
     redisClient.incr('clicks', function(err, reply) {
         if (err) return next(err);
         // broadcast the new click count to connected clients
