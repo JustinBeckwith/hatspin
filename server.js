@@ -25,7 +25,7 @@ app.set('view engine', 'html');
 app.use(express.static(path.join(__dirname, 'public')));
 
 // pubnub setup
-var pubnub = require("pubnub")({
+const pubnub = require("pubnub")({
     ssl: true,
     publish_key: nconf.get('pubnub_publish_key'),
     subscribe_key: nconf.get('pubnub_subscribe_key')
@@ -56,10 +56,12 @@ app.get('/', function(req, res, next) {
     redisClient.get('clicks', function(err, data) {
         console.log("err: " + err);
         console.log("data: " + data);
+        let clicks = data ? data : 0;
+        clicks = clicks > 100 ? 100 : clicks;
         if (err) { return next(err); }
         res.render('index', {
             subscribeKey: nconf.get('pubnub_subscribe_key'),
-            clicks: (data ? data : 0) + "" // swig type bug
+            clicks: clicks + "" // swig type bug
         });
     });
 });
@@ -78,10 +80,11 @@ app.post('/click', function(req, res, next) {
     redisClient.incr('clicks', function(err, reply) {
         if (err) return next(err);
         // broadcast the new click count to connected clients
+        let clicks = (reply > 100) ? 100 : reply;
         api.output();
         pubnub.publish({
             channel: 'click',
-            message: reply,
+            message: clicks,
             callback: function(r) {
                 res.sendStatus(202);
             },
