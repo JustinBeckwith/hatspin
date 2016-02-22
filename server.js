@@ -36,7 +36,7 @@ const redisClient = redis.createClient(
     nconf.get('redis_port') || '6379',
     nconf.get('redis_host') || '127.0.0.1', 
     {
-        'auth_pass': nconf.get('redisKey'),
+        'auth_pass': nconf.get('redis_password'),
         'return_buffers': true
     }
 ).on('error', function(err) {

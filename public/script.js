@@ -9,7 +9,8 @@ progress.addEventListener('mdl-componentupgraded', function() {
 });
 
 var nub = PUBNUB.init({
-    subscribe_key: subscribeKey
+    subscribe_key: subscribeKey,
+    ssl: true
 });
 
 nub.subscribe({

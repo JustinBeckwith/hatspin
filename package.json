@@ -9,6 +9,9 @@
   },
   "author": "Justin Beckwith<justin.beckwith@gmail.com>",
   "license": "MIT",
+  "engines" : { 
+    "node" : "4.2.3"
+  },
   "dependencies": {
     "@littlebits/cloud-http": "^0.3.5",
     "express": "^4.13.4",
