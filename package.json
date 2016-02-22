@@ -1,7 +1,7 @@
 {
-  "name": "iot",
+  "name": "hatspin",
   "version": "1.0.0",
-  "description": "",
+  "description": "HatSpin is an example of using the LittleBits CloudKit and node.js to bridge the web and physical devices.",
   "main": "server.js",
   "scripts": {
     "start": "node server.js",

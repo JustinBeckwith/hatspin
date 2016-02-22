@@ -1,9 +1,8 @@
 # HatSpin: LittleBits + node.js
 
-HatSpin is an example of using the [LittleBits CloudKit](https://littlebits.cc/kits/cloudbit-starter-kit) and node.js to bridge the web and physical devices.  
+HatSpin is an example of using the [LittleBits CloudKit](https://littlebits.cc/kits/cloudbit-starter-kit) and node.js to bridge the web and physical devices. 
 
 ![LittleBits CloudKit](http://i.imgur.com/8yMKqze.png)
-
 
 ## Setup
 
@@ -18,6 +17,7 @@ Log into the [LittleBits Cloud Console](http://control.littlebitscloud.cc/).  Cl
 Now the circuit.  I'm using the w20 cloud bit, and a simple dc motor to create some spin.  You could really use any output circuit here.  Play around with it, and so something fun!
 
 ![Circuit](http://i.imgur.com/NlV5wmG.jpg)
+
 
 ### Redis
 
@@ -37,7 +37,7 @@ After `secrets.json` is in good shape, just run with:
 npm start
 ```
 
-Next, hit [http://localhost:8080] in your browser.  Keep on clicking the button!  Once you hit 100 clicks, the circuit will start to go.  
+Next, hit [http://localhost:8080](http://localhost:8080) in your browser.  Keep on clicking the button!  Once you hit 100 clicks, the circuit will start to go.  
 
 ## Deployment
 
