@@ -5,6 +5,7 @@ const nconf = require('nconf');
 const swig = require('swig');
 const path = require('path');
 const redis = require('redis');
+const favicon = require('serve-favicon');
 
 nconf.argv().env().file({
     file: 'secrets.json'
@@ -22,6 +23,7 @@ const app = express();
 app.set('views', path.join(__dirname, 'views'));
 app.engine('html', swig.renderFile);
 app.set('view engine', 'html');
+app.use(favicon(__dirname + '/public/favicon.ico'));
 app.use(express.static(path.join(__dirname, 'public')));
 
 // pubnub setup
