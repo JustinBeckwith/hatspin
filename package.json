@@ -4,15 +4,16 @@
   "description": "HatSpin is an example of using the LittleBits CloudKit and node.js to bridge the web and physical devices.",
   "main": "server.js",
   "scripts": {
-    "start": "node server.js",
+    "start": "GCLOUD_PROJECT_NUM=61737025543 node --require @google/cloud-debug server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Justin Beckwith<justin.beckwith@gmail.com>",
   "license": "MIT",
   "engines": {
-    "node": "4.2.3"
+    "node": "^4.4"
   },
   "dependencies": {
+    "@google/cloud-debug": "^0.6.2",
     "@littlebits/cloud-http": "^0.3.5",
     "express": "^4.13.4",
     "nconf": "^0.8.4",
