@@ -1,5 +1,7 @@
 # HatSpin: LittleBits + node.js
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/JustinBeckwith/hatspin.svg)](https://greenkeeper.io/)
+
 HatSpin is an example of using the [LittleBits CloudKit](https://littlebits.cc/kits/cloudbit-starter-kit) and node.js to bridge the web and physical devices. 
 
 ![LittleBits CloudKit](http://i.imgur.com/8yMKqze.png)
