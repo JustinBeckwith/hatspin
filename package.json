@@ -5,7 +5,9 @@
   "main": "server.js",
   "scripts": {
     "start": "GCLOUD_PROJECT_NUM=61737025543 node --require @google/cloud-debug server.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "snyk-protect": "snyk protect",
+    "prepare": "npm run snyk-protect"
   },
   "author": "Justin Beckwith<justin.beckwith@gmail.com>",
   "license": "MIT",
@@ -20,6 +22,8 @@
     "pubnub": "^3.10.2",
     "redis": "^2.4.2",
     "serve-favicon": "^2.3.0",
-    "swig": "^1.4.2"
-  }
+    "swig": "^1.4.2",
+    "snyk": "^1.85.0"
+  },
+  "snyk": true
 }
